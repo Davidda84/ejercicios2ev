@@ -2,15 +2,15 @@ package unidad6;
 
 import java.util.ArrayList;
 
-public class Entrenador {
+public class EntrenadorV2 {
 	private String Nombre;
 	private int Insignia;
-	private ArrayList<Pokemon> Coleccion;
+	private ArrayList<PokemonV2> Coleccion;
 	
-	public Entrenador(String nombre) {
+	public EntrenadorV2(String nombre) {
 		this.Nombre = nombre;
 		this.Insignia = 0;
-		this.Coleccion = new ArrayList<Pokemon>();
+		this.Coleccion = new ArrayList<PokemonV2>();
 	}
 	
 	public int getInsignias() {
@@ -19,13 +19,13 @@ public class Entrenador {
 	public void setInsignias() {
 		Insignia ++;
 	}
-	public ArrayList<Pokemon> getColeccion() {
+	public ArrayList<PokemonV2> getColeccion() {
 		return Coleccion;
 	}
-	public void addPokemon(Pokemon pokemon) {
+	public void addPokemon(PokemonV2 pokemon) {
 		Coleccion.add(pokemon);
 	}
-	public void deletePokemon(Pokemon pokemon) {
+	public void deletePokemon(PokemonV2 pokemon) {
 		Coleccion.remove(pokemon);
 	}	
 	public String getNombre() {
@@ -45,7 +45,7 @@ public class Entrenador {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entrenador other = (Entrenador) obj;
+		EntrenadorV2 other = (EntrenadorV2) obj;
 		if (Nombre == null) {
 			if (other.Nombre != null)
 				return false;

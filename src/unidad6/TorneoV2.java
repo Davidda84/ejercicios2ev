@@ -6,16 +6,16 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Torneo {
-	public static ArrayList<Entrenador> entrenadoresTorneo2 = new ArrayList<Entrenador>();
+public class TorneoV2 {
+	public static ArrayList<EntrenadorV2> entrenadoresTorneo2 = new ArrayList<EntrenadorV2>();
 	public static Scanner teclado = new Scanner(System.in);
-	public static ArrayList<Pokemon> pokemonMuertos = new ArrayList<Pokemon>();
+	public static ArrayList<PokemonV2> pokemonMuertos = new ArrayList<PokemonV2>();
 
 	public static void main(String[] args) throws IOException {
 		String entrada = teclado.next();
 		while (!entrada.equalsIgnoreCase("torneo")) {
 			try {
-				Entrenador aspirante = new Entrenador(entrada);
+				EntrenadorV2 aspirante = new EntrenadorV2(entrada);
 				if (entrenadoresTorneo2.contains(aspirante)) {
 					entrenadoresTorneo2.get(entrenadoresTorneo2.indexOf(aspirante)).addPokemon(AnadirPokemon());
 				} else {
@@ -31,10 +31,10 @@ public class Torneo {
 		}
 		entrada = teclado.next();
 		while (!entrada.equalsIgnoreCase("fin")) {
-			Elemento elmentoJuego = Elemento.valueOf(entrada.toUpperCase());
-			for (Entrenador e : entrenadoresTorneo2) {
+			ElementoPokemon elmentoJuego = ElementoPokemon.valueOf(entrada.toUpperCase());
+			for (EntrenadorV2 e : entrenadoresTorneo2) {
 				boolean tieneElemento = false;
-				for (Pokemon p : e.getColeccion()) {
+				for (PokemonV2 p : e.getColeccion()) {
 					if (CompruebaElemento(elmentoJuego, p)) {
 						tieneElemento = true;
 					}
@@ -42,31 +42,31 @@ public class Torneo {
 				if (tieneElemento) {
 					e.setInsignias();
 				} else {
-					for (Pokemon p : e.getColeccion()) {
+					for (PokemonV2 p : e.getColeccion()) {
 						p.setSalud();
 						if (p.getSalud() <= 0) {
 							pokemonMuertos.add(p);
 						}
 					}
 				}
-				for (Pokemon pr : pokemonMuertos) {
+				for (PokemonV2 pr : pokemonMuertos) {
 					e.deletePokemon(pr);
 				}
 			}
 			entrada = teclado.next();
 		}
-		for (Entrenador e : entrenadoresTorneo2) {
+		for (EntrenadorV2 e : entrenadoresTorneo2) {
 			System.out.println(e.toString());
 		}
 	}
 
-	public static Pokemon AnadirPokemon() throws IOException {
-		Pokemon poke = null;
+	public static PokemonV2 AnadirPokemon() throws IOException {
+		PokemonV2 poke = null;
 		try {
 			String nombrePokemon = teclado.next();
 			String strElemento = teclado.next().toUpperCase();
-			Elemento elmentoPokemon = Elemento.valueOf(strElemento);
-			poke = new Pokemon(nombrePokemon, elmentoPokemon, teclado.nextInt());
+			ElementoPokemon elmentoPokemon = ElementoPokemon.valueOf(strElemento);
+			poke = new PokemonV2(nombrePokemon, elmentoPokemon, teclado.nextInt());
 		} catch (InputMismatchException e) {
 			señalarError(teclado);
 		} catch (NoSuchElementException e) {
@@ -83,7 +83,7 @@ public class Torneo {
 		System.out.printf(formato, "^");
 	}
 
-	public static boolean CompruebaElemento(Elemento elementoJuego, Pokemon poke) {
+	public static boolean CompruebaElemento(ElementoPokemon elementoJuego, PokemonV2 poke) {
 		if (poke.getElemento() == elementoJuego) {
 			return true;
 		} else {

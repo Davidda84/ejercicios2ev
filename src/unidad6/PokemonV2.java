@@ -1,8 +1,8 @@
 package unidad6;
 
-public class Pokemon {
+public class PokemonV2 {
 	private String Nombre;
-	private Elemento Elemento;
+	private ElementoPokemon Elemento;
 	private int Salud;
 
 	@Override
@@ -13,7 +13,7 @@ public class Pokemon {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pokemon other = (Pokemon) obj;
+		PokemonV2 other = (PokemonV2) obj;
 		if (Elemento == null) {
 			if (other.Elemento != null)
 				return false;
@@ -26,13 +26,13 @@ public class Pokemon {
 		return Nombre;
 	}
 
-	public Pokemon(String nombre, Elemento elemento, int salud) {
+	public PokemonV2(String nombre, ElementoPokemon elemento, int salud) {
 		this.Nombre = nombre;
 		this.Elemento = elemento;
 		this.Salud= salud;		
 	}
 
-	public Elemento getElemento() {
+	public ElementoPokemon getElemento() {
 		return Elemento;
 	}
 
