@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class Entrenador {
 	private String Nombre;
-	private int Insignias;
+	private int Insignia;
 	private ArrayList<Pokemon> Coleccion;
 	
 	public Entrenador(String nombre) {
 		this.Nombre = nombre;
-		this.Insignias = 0;
+		this.Insignia = 0;
 		this.Coleccion = new ArrayList<Pokemon>();
 	}
 	
 	public int getInsignias() {
-		return Insignias;
+		return Insignia;
 	}
 	public void setInsignias() {
-		Insignias ++;
+		Insignia ++;
 	}
 	public ArrayList<Pokemon> getColeccion() {
 		return Coleccion;
@@ -34,7 +34,7 @@ public class Entrenador {
 
 	@Override
 	public String toString() {
-		return Nombre + " " + Insignias + " " +  Coleccion.size();
+		return Nombre + " " + Insignia + " " +  Coleccion.size();
 	}
 
 	@Override

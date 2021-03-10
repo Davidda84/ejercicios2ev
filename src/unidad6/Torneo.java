@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Torneo {
-	public static ArrayList<Entrenador> entrenadoresTorneo = new ArrayList<Entrenador>();
+	public static ArrayList<Entrenador> entrenadoresTorneo2 = new ArrayList<Entrenador>();
 	public static Scanner teclado = new Scanner(System.in);
 	public static ArrayList<Pokemon> pokemonMuertos = new ArrayList<Pokemon>();
 
@@ -16,10 +16,10 @@ public class Torneo {
 		while (!entrada.equalsIgnoreCase("torneo")) {
 			try {
 				Entrenador aspirante = new Entrenador(entrada);
-				if (entrenadoresTorneo.contains(aspirante)) {
-					entrenadoresTorneo.get(entrenadoresTorneo.indexOf(aspirante)).addPokemon(AnadirPokemon());
+				if (entrenadoresTorneo2.contains(aspirante)) {
+					entrenadoresTorneo2.get(entrenadoresTorneo2.indexOf(aspirante)).addPokemon(AnadirPokemon());
 				} else {
-					entrenadoresTorneo.add(aspirante);
+					entrenadoresTorneo2.add(aspirante);
 					aspirante.addPokemon(AnadirPokemon());
 				}
 			} catch (InputMismatchException e) {
@@ -32,7 +32,7 @@ public class Torneo {
 		entrada = teclado.next();
 		while (!entrada.equalsIgnoreCase("fin")) {
 			Elemento elmentoJuego = Elemento.valueOf(entrada.toUpperCase());
-			for (Entrenador e : entrenadoresTorneo) {
+			for (Entrenador e : entrenadoresTorneo2) {
 				boolean tieneElemento = false;
 				for (Pokemon p : e.getColeccion()) {
 					if (CompruebaElemento(elmentoJuego, p)) {
@@ -55,7 +55,7 @@ public class Torneo {
 			}
 			entrada = teclado.next();
 		}
-		for (Entrenador e : entrenadoresTorneo) {
+		for (Entrenador e : entrenadoresTorneo2) {
 			System.out.println(e.toString());
 		}
 	}
