@@ -1,8 +1,6 @@
 package unidad6Excepciones;
 
 import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Ejercicio2 {
