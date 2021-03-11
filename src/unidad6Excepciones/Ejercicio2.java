@@ -13,19 +13,18 @@ public class Ejercicio2 {
 		//System.out.println("La solución es " + Arrays.toString(ec2(3, 2, 1)));
 		
 	}
-	
-	@SuppressWarnings("null")
+
 	public static double [] ec2 (double a, double b, double c) {
 		double [] respuesta = new double[2];
 		if (a == 0) {
-			System.out.println("El coeficiente a es " + a);
+			System.out.println("No es una ecuación de segundo grado porque");
 			throw new IllegalArgumentException();
 		}
 
 		double contenidoRaiz = b * b - 4 * a * c;
 		
 		if(contenidoRaiz < 0) {
-			System.out.println("No se puede realizar la raiz de un úmero negativo (b^2 - 4ac = " + contenidoRaiz + ")");
+			System.out.println("La ecuación no tiene una solución real");
 			throw new ArithmeticException();
 		}
 		
