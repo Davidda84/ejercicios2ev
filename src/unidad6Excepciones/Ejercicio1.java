@@ -32,7 +32,7 @@ public class Ejercicio1 {
 	}
 	
 	public static Boolean isDouble(String n) {
-		Double numDouble;
+		double numDouble;
 		try {
 			numDouble = Double.parseDouble(n);
 			return true;
