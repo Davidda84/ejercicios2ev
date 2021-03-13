@@ -14,7 +14,14 @@ public class Libro extends Prestamo {
 	}
 
 	public String toString() {
-		return "Libro [" + super.toString() + "]";
+		String prestado;
+		if(this.isPrestado()) {
+			prestado ="Ha sido prestado";
+		}
+		else {
+			prestado = "Nunca ha sido prestado";
+		}
+		return "Libro [" + super.toString() + " , " + prestado+"]";
 	}
 	
 	
