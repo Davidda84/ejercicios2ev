@@ -25,6 +25,7 @@ public class Contratista extends Empleado {
 		for (SociedadAnonima sa: this.Empresa) {
 			if(sa.getListaTrabajos().contains(concepto)) {
 				mensaje += " en la empresa " + sa.getName();
+				break;
 			}
 			else {
 				mensaje = "No hay ninguna empresa que realice ese servicio";
