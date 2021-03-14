@@ -9,9 +9,20 @@ public class Ejercicio6 {
 	public static void main(String[] args) throws NumberFormatException, Exception {
 		Scanner in = new Scanner(System.in);
 		String opcion;
-		while (!(opcion = in.next()).equalsIgnoreCase("fin"))
-			lanzarExcepcion(Integer.parseInt(opcion));
+
+		while (!(opcion = in.next()).equalsIgnoreCase("fin")) {
+			try {
+				lanzarExcepcion(Integer.parseInt(opcion));
+			} catch (RuntimeException e) {
+				System.out.println("It's UnChecked");
+			} catch (Exception e) {
+				System.out.println("It's Checked");
+			} catch (Error e) {
+				System.out.println("Error");
+			}
+		}
 		in.close();
+
 	}
 
 	static void lanzarExcepcion(int opcion) throws Exception {
