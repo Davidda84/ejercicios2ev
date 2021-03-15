@@ -8,8 +8,8 @@ public class Ejercicio2 {
 
 	public static void main (String[] args) {
 				
-		System.out.println("La solución es " + Arrays.toString(ec2(2, 3, 1)));
-		//System.out.println("La solución es " + Arrays.toString(ec2(0, 3, 1)));
+		//System.out.println("La solución es " + Arrays.toString(ec2(2, 3, 1)));
+		System.out.println("La solución es " + Arrays.toString(ec2(0, 3, 1)));
 		//System.out.println("La solución es " + Arrays.toString(ec2(3, 2, 1)));
 		
 	}
@@ -17,8 +17,14 @@ public class Ejercicio2 {
 	public static double [] ec2 (double a, double b, double c) {
 		double [] respuesta = new double[2];
 		if (a == 0) {
-			System.out.println("No es una ecuación de segundo grado porque");
-			throw new IllegalArgumentException();
+			try{
+				System.out.println("No es una ecuación de segundo grado porque");
+				throw new Coeficiente0("No es una ecuación de segundo grado porque");
+			}
+			catch(Coeficiente0 e){
+				System.out.println("Hola");
+			}
+			//throw new IllegalArgumentException();
 		}
 
 		double contenidoRaiz = b * b - 4 * a * c;

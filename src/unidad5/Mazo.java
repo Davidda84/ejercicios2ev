@@ -37,7 +37,6 @@ public class Mazo {
 		int i = naipesMazo.size();
 		int aleatorio = (int) Math.floor(Math.random() * i);
 		Naipe naipeSolo = naipesMazo.get(aleatorio);
-		System.out.println("Pitame SIZE - " + naipesMazo.size());
 		this.naipes.remove(aleatorio);
 		return naipeSolo;
 	}
