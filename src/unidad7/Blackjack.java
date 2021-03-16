@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import unidad5.Mazo;
 import unidad5.Naipe;
 
 public class Blackjack {
 
-	public static ArrayList<ArrayList<Naipe>> jugadores = new ArrayList<ArrayList<Naipe>>();
-	public static ArrayList<Naipe> crupier = new ArrayList<Naipe>();
+	public static Mano juego;
+	public static ArrayList<Mano> jugadores = new ArrayList<Mano>();
+	public static Mano crupier;
 	public static Scanner teclado = new Scanner(System.in);
 	public static boolean manoEnCurso = false;
+	public static boolean JuegoIniciado = false;
 	public static int[] jugadorturno;
 	public static int turno;
-	public static Mano juego;
 	public static String[] estadoJugadores;
 
 	public static void main(String[] args) {
@@ -25,32 +27,38 @@ public class Blackjack {
 		while (!entrada.equalsIgnoreCase("fin")) {
 			switch (entrada) {
 			case "repartir":
+				JuegoIniciado = true;
 				if (manoEnCurso == false) {
 					manoEnCurso = true;
+					juego = new Mano(6);
+					crupier = new Mano(0);
 					System.out.println("Numero de jugadores");
 					System.out.println("Blackjack>");
+
 					int njugadores = Integer.parseInt(teclado.next());
 					jugadorturno = new int[njugadores];
-					for (int i = 0; i < jugadorturno.length; i++) {
+
+					for (int i = 0; i < njugadores; i++) {
 						jugadorturno[i] = i + 1;
-						ArrayList<Naipe> jugador = new ArrayList<Naipe>();
+						Mano jugador = new Mano(0);
 						jugadores.add(jugador);
 					}
+
 					estadoJugadores = new String[njugadores];
-					juego = new Mano(6);
+
 					for (int l = 0; l < 2; l++) {
-						int jugador = 0;
-						for (ArrayList<Naipe> j : jugadores) {
-							jugador++;
+						int njugador = 0;
+						for (Mano m : jugadores) {
+							njugador++;
 							Naipe naipe = juego.removeNaipes();
-							System.out.println("Jugador " + jugador + " tiene " + naipe.getNaipe());
-							j.add(naipe);
+							System.out.println("Jugador " + njugador + " tiene " + naipe.getNaipe());
+							Mazo.addNaipes(m, naipe);
 						}
 						Naipe naipeCrupier = juego.removeNaipes();
 						if (l == 0) {
 							System.out.println("El Cuprier tiene " + naipeCrupier.getNaipe());
 						}
-						crupier.add(naipeCrupier);
+						Mazo.addNaipes(crupier, naipeCrupier);
 					}
 					turno = 0;
 				} else {
@@ -86,21 +94,18 @@ public class Blackjack {
 					manoEnCurso = false;
 					int valorCrupier = JuegoCrupier();
 					int n = 1;
-					if(valorCrupier > 21) {
+					if (valorCrupier > 21) {
 						System.out.println("El Crupier se ha pasado");
-					}
-					else {
-						for(ArrayList <Naipe> naipes : jugadores) {
-							int valorjugada = getValor(naipes);
-							if(valorjugada > 21) {
+					} else {
+						for (Mano manos : jugadores) {
+							int valorjugada = manos.getValor();
+							if (valorjugada > 21) {
 								System.out.println("El Jugador " + n + " ha perdido");
 								n++;
-							}
-							else if(getValor(naipes) > valorCrupier) {
+							} else if (manos.getValor() > valorCrupier) {
 								System.out.println("El Jugador " + n + " ha ganado");
 								n++;
-							}
-							else {
+							} else {
 								System.out.println("El Jugador " + n + " ha perdido");
 								n++;
 							}
@@ -109,74 +114,58 @@ public class Blackjack {
 				}
 				break;
 			}
-			
-			if(manoEnCurso == true) {
-				if (estadoJugadores[turno] != null) {
-					if ((turno + 1) == jugadorturno.length) {
-						turno = 0;
-					} else {
-						turno++;
+
+			if (JuegoIniciado == true) {
+				if (manoEnCurso == true) {
+					if (estadoJugadores[turno] != null) {
+						if ((turno + 1) == jugadorturno.length) {
+							turno = 0;
+						} else {
+							turno++;
+						}
 					}
+					System.out.println("Tiene el turno el Jugador " + jugadorturno[turno]);
+					System.out
+							.println("El Jugador " + jugadorturno[turno] + " tiene " + jugadores.get(turno).getValor());
+				} else {
+					System.out.println("Ha finalizado la Mano, iniciar de nuevo o salir");
 				}
-				System.out.println("Tiene el turno el Jugador " + jugadorturno[turno]);
-				System.out.println("El Jugador " + jugadorturno[turno] + " tiene " + getValor(jugadores.get(turno)));
 			}
 			else {
-				System.out.println("Ha finalizado la Mano");
+				System.out.println("Aun no se ha iniciado el juego");
 			}
-			System.out.println("Blackjack>");
-			entrada = teclado.next();
+				System.out.println("Blackjack>");
+				entrada = teclado.next();
+
 		}
 
 	}
 
-	public static int getValor(ArrayList<Naipe> mano) {
-		int valorMano = 0;
-		boolean haveAce = false;
-		for (Naipe n : mano) {
-			int valorNaipe = n.getValor();
-			if (valorNaipe > 10 && valorNaipe < 14) {
-				valorMano += 10;
-			} else if (valorNaipe == 14) {
-				valorNaipe = 11;
-				haveAce = true;
-				if ((valorMano + valorNaipe) > 21) {
-					valorMano++;
-				} else {
-					valorMano += valorNaipe;
-				}
-			} else {
-				valorMano += valorNaipe;
-			}
-		}
-		if (valorMano > 21 && haveAce) {
-			valorMano -= 10;
-		}
-		return valorMano;
-	}
-	
-	public static int JuegoCrupier() {		
-		for (Naipe n : crupier) {
+	public static int JuegoCrupier() {
+		for (Naipe n : crupier.getMano()) {
 			System.out.println("El Crupier tiene " + n.getNaipe());
 		}
-		System.out.println("Su jugada vale " + getValor(crupier));
-		
-		while(getValor(crupier) < 17) {
+		System.out.println("Su jugada vale " + crupier.getValor());
+
+		while (crupier.getValor() < 17) {
 			System.out.println("Crupier pide carta");
 			System.out.println("El Crupier tiene " + Pedir("c"));
-			System.out.println("Su jugada vale " + getValor(crupier));
+			System.out.println("Su jugada vale " + crupier.getValor());
 		}
-		return getValor(crupier);
+		return crupier.getValor();
 	}
-	
+
 	public static String Pedir(String tipo) {
 		Naipe naipePedido = juego.removeNaipes();
-		if(tipo.equalsIgnoreCase("j")) {
-			jugadores.get(turno).add(naipePedido);
+		if (tipo.equalsIgnoreCase("j")) {
+			Mazo.addNaipes(jugadores.get(turno), naipePedido);
+			if(jugadores.get(turno).getValor() > 21) {
+				System.out.println("Jugador " + (turno+1) +" se ha pasado");
+				estadoJugadores[turno] = "Se planta";
+			}
+		} else {
+			Mazo.addNaipes(crupier, naipePedido);
 		}
-		else {
-			crupier.add(naipePedido);
-		}		
 		return naipePedido.getNaipe();
 	}
 }

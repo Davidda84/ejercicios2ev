@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mazo {
-	private List<Naipe> naipes = new ArrayList<Naipe>();
+	protected List<Naipe> naipes = new ArrayList<Naipe>();
 	private static String[] palo = { "tréboles", "diamantes", "corazones", "picas" };
 
 	public Mazo() {
