@@ -47,6 +47,10 @@ public class Naipe {
 			return this.valor;
 		}
 		
+		public String getPalo() {
+			return this.valorPalo;
+		}
+		
 		public String mayorOMenor(int valorJugador, int valorMaquina) {
 			if(valorJugador > valorMaquina) {
 				return "Tu carta es mayor que la mia, has ganado";

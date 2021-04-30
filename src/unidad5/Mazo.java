@@ -31,6 +31,10 @@ public class Mazo {
 		Naipe naipeSolo = naipesMazo.get((int) Math.floor(Math.random() * i));
 		return naipeSolo;
 	}
+	
+	public List<Naipe> getAll() {
+		return this.naipes;
+	}
 
 	public Naipe removeNaipes() {
 		List<Naipe> naipesMazo = this.naipes;
@@ -39,6 +43,10 @@ public class Mazo {
 		Naipe naipeSolo = naipesMazo.get(aleatorio);
 		this.naipes.remove(aleatorio);
 		return naipeSolo;
+	}
+	
+	public static void removeNaipes(Mazo m1,Naipe n) {
+		m1.naipes.remove(n);
 	}
 
 	public static String addNaipes(Mazo m1,Naipe n) {
